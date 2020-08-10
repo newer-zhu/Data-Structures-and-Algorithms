@@ -7,8 +7,6 @@ import java.util.Queue;
 
 public class Graph {
     public static void main(String[] args) {
-        Graph graph = new Graph(5);
-
     }
 
     private ArrayList<String> vertexList;//节点
