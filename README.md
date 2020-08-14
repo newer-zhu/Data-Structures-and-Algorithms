@@ -2,6 +2,7 @@
 # -Data-structure-and-algorithm
 My personnal study notes about Data structure and algorithm(我的个人数据结构学习笔记)
 总结了数据结构与算法的笔记 
+- Algorithm放的是算法
 
 - /Data-structure里是个人学习数据结构与算法的案例代码实现内容
 
@@ -16,4 +17,3 @@ My personnal study notes about Data structure and algorithm(我的个人数据�
 - 数据结构
 
 - leetcode笔记
->>>>>>> 54eb41f7ed2bc653eee56d4f9a3a7be6aa22fd65
