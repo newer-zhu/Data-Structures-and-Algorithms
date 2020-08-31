@@ -1,6 +1,6 @@
 package leetcode_notes;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 1. 看字母出现的次数是否相同
