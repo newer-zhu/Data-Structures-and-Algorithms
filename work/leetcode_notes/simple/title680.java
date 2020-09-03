@@ -1,23 +1,30 @@
 package leetcode_notes.simple;
 
+import java.util.HashMap;
+
 public class title680 {
     public static void main(String[] args) {
-        System.out.println(validPalindrome("deeee"));
     }
-    public static boolean validPalindrome(String s) {
+    public boolean validPalindrome(String s) {
         char[] array = s.toCharArray();
         int j = 0;
         int k = array.length - 1;
-        boolean isChange = false;
-        while (j != k){
-            if (array[j] == array[k]){
-                j++;
-                k--;
-            }else if (array[j] != array[k] && !isChange){
-                j++;
-                isChange = true;
-            }else
+        while (j < k){
+            if (s.charAt(j) != s.charAt(k)){
+                return judge(s,j,k-1) || judge(s,j+1,k);
+            }
+            j++;
+            k--;
+        }
+        return true;
+    }
+
+    public boolean judge(String s, int j, int k){
+        while (j < k){
+            if (s.charAt(j) != s.charAt(k))
                 return false;
+            j++;
+            k--;
         }
         return true;
     }
