@@ -3,6 +3,7 @@ package leetcode_notes.simple;
 import java.util.ArrayList;
 
 public class title404 {
+
     static int sum = 0;
     public int sumOfLeftLeaves(TreeNode root) {
         if (root == null)

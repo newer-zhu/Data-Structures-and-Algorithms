@@ -2,6 +2,8 @@ package 剑指Offer;
 
 import linkedList.LinkedList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
 public class Offer38 {
 }
 
-class Solution {
+class Solution1 {
     List<String> res;
     char[] c;
     public String[] permutation(String s) {
@@ -38,5 +40,52 @@ class Solution {
         char tmp = c[a];
         c[a] = c[b];
         c[b] = tmp;
+    }
+}
+
+///回溯
+class Solution2{
+    public static void main(String[] args) {
+        Solution2 solution2 = new Solution2();
+        solution2.permutation("abb");
+    }
+    List<String> rec;
+    boolean[] vis;//标记是否使用过这个字母
+
+    public String[] permutation(String s) {
+        int n = s.length();
+        rec = new ArrayList<String>();
+        vis = new boolean[n];
+        char[] arr = s.toCharArray();
+        //排序字母，相同的字母会相邻
+        Arrays.sort(arr);
+        StringBuffer perm = new StringBuffer();
+        backtrack(arr, 0, n, perm);
+
+        int size = rec.size();
+        String[] recArr = new String[size];
+        for (int i = 0; i < size; i++) {
+            recArr[i] = rec.get(i);
+        }
+        return recArr;
+    }
+
+    public void backtrack(char[] arr, int i, int n, StringBuffer perm) {
+        //加如结果集
+        if (i == n) {
+            rec.add(perm.toString());
+            return;
+        }
+        for (int j = 0; j < n; j++) {
+//            这个限制条件保证了对于重复的字符，我们一定是从左往右依次填入的空位中的
+            if (vis[j] || (j > 0 && !vis[j - 1] && arr[j - 1] == arr[j])) {
+                continue;
+            }
+            vis[j] = true;
+            perm.append(arr[j]);
+            backtrack(arr, i + 1, n, perm);
+            perm.deleteCharAt(perm.length() - 1);
+            vis[j] = false;
+        }
     }
 }

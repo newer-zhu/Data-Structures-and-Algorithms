@@ -1,13 +1,16 @@
 package leetcode_notes.medium;
 
-import java.util.List;
 
 public class title24 {
-//    public ListNode swapPairs(ListNode head) {
-//        ListNode pre = head;
-//        ListNode mid = head.next;
-//        ListNode end = head.next.next;
-//    }
+    //title24.=====递归解法
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next== null)
+            return head;
+        ListNode next = head.next;
+        head.next= swapPairs(next.next);
+        next.next = head;
+        return next;
+    }
 }
 
 class ListNode {

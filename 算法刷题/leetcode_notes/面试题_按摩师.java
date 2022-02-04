@@ -1,6 +1,12 @@
 package leetcode_notes;
 
 
+import java.awt.print.Pageable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * 难度****
  * 如果你选择i，那么将永远不会选择i + 1，但是总会选择i + 2或i + 3。
@@ -26,5 +32,8 @@ public class 面试题_按摩师 {
         return time[time.length-1];
     }
 
+    public static void main(String[] args) {
+
+    }
 
 }
