@@ -1,4 +1,4 @@
-package util;
+package common;
 
 public class TreeNode {
     public int val;

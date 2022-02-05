@@ -1,6 +1,6 @@
 package leetcode_notes.树;
 
-import util.TreeNode;
+import common.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;
