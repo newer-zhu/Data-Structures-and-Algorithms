@@ -32,8 +32,5 @@ public class 面试题_按摩师 {
         return time[time.length-1];
     }
 
-    public static void main(String[] args) {
-
-    }
 
 }
