@@ -6,6 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Example {
+    public int maxProfit(int[] prices) {
+        int res = 0;
+        int low = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            low = Math.min(low, prices[i]);
+            res = Math.max(res, prices[i] - low);
+        }
+        return res;
+    }
+
     //title678
     public boolean checkValidString(String s) {
         int minCount = 0, maxCount = 0;

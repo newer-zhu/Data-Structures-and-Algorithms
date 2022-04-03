@@ -1,5 +1,7 @@
 package leetcode_notes.动态规划;
 
+import common.TreeNode;
+
 import java.util.*;
 
 
@@ -43,6 +45,21 @@ public class medium {
         }
         return false;
     }
+
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+        return Arrays.stream(dp).max().getAsInt();
+    }
+
+
 
     //title45
     public int jump(int[] nums) {
@@ -107,6 +124,41 @@ public class medium {
         return res;
     }
 
+    public int findLength(int[] nums1, int[] nums2) {
+        int lenA = nums1.length;
+        int lenB = nums2.length;
+//        dp[i][j]代表nums1中的i-1在nums2的j-1中重复的最大长度
+        int[][] dp = new int[lenA+1][lenB+1];
+        int res = 0;
+
+        for (int i = 1; i <= lenA; i++) {
+            for (int j = 1; j <= lenB; j++) {
+                if (nums1[i-1] == nums2[j-1]){
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                }
+                res = Math.max(res, dp[i][j]);
+            }
+        }
+        return res;
+    }
+
+    public int longestCommonSubsequence(String text1, String text2) {
+        int len1 = text1.length();
+        int len2 = text2.length();
+        int[][] dp = new int[len1+1][len2+1];
+
+        for (int i = 1; i <= len1; i++) {
+            for (int j = 1; j <= len2; j++) {
+                if (text1.charAt(i-1) == text2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                }else {
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
+        }
+        return dp[len1][len2];
+    }
+
     //title1014
     public int maxScoreSightseeingPair(int[] values) {
         int len = values.length;
@@ -119,19 +171,6 @@ public class medium {
         return res;
     }
 
-    //
-    public int maxProfit(int[] prices) {
-        int n = prices.length;
-        int[][] dp = new int[n][2];
-        dp[0][0] = 0;
-        dp[0][1] = -prices[0];
-        for (int i = 1; i < n; ++i) {
-            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
-            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
-        }
-        return dp[n - 1][0];
-    }
-
     //title309
     public int maxProfit1(int[] prices) {
         int n = prices.length;
@@ -139,46 +178,37 @@ public class medium {
         //dp本身表示截止第i天的最大收益
         //0表示当天手里有股票
         //1表示当天结束时处于冷冻期
-        //1表示当天没有股票
+        //2表示当天没有股票且不处于冷冻期
         dp[0][0] = -prices[0];
         dp[0][1] = 0;
         dp[0][2] = 0;
         for (int i = 1; i < n; i++) {
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][2] - prices[i]);
-            dp[i][1] = dp[i - 1][1] + prices[i];
+            dp[i][1] = dp[i - 1][0] + prices[i];
             dp[i][2] = Math.max(dp[i - 1][2], dp[i - 1][1]);
         }
         return Math.max(dp[n - 1][1], dp[n - 1][2]);
     }
 
-    public int maxProfit(int[] prices, int fee) {
+    public int maxProfitIII(int[] prices, int k) {
         int n = prices.length;
-        int[][] dp = new int[n][2];
-        dp[0][0] = 0;
-        dp[0][1] = -prices[0];
-        for (int i = 1; i < n; i++) {
-            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i] - 2);
-            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+        if (n == 0) return 0;
+        int[][] dp = new int[n][2*k+1];
+        //dp本身表示截止第i天的最大收益
+        //0表示当天不操作
+        //1表示第一次买入,手里有股票
+        //2表示第一次卖出，手里没股票
+        //3.....规律：奇数买入，偶数卖出
+        for (int j = 1; j < 2 * k; j += 2) {
+            dp[0][j] = -prices[0];
         }
-        return dp[n - 1][0];
-    }
-
-    //title139
-    public boolean wordBreak(String s, List<String> wordDict) {
-        int size = wordDict.size();
-        boolean[] dp = new boolean[size + 1];
-        HashSet<String> set = new HashSet<>(wordDict);
-        dp[0] = true;
-        //这里的转移方程分两层循环，dp[i]的状态不仅仅依赖dp[i-1], 而是依赖dp[0 ~ i-1]
-        for (int i = 1; i < size; i++){
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && set.contains(s.substring(j, i))){
-                    dp[i] = true;
-                    break;
-                }
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j <= 2*k - 2; j += 2) {
+                dp[i][j+1] = Math.max(dp[i-1][j]-prices[i], dp[i-1][j+1]);
+                dp[i][j+2] = Math.max(dp[i-1][j+1]+prices[i], dp[i-1][j+2]);
             }
         }
-        return dp[size];
+        return dp[n-1][2*k];
     }
 
     ///title42
@@ -353,5 +383,29 @@ public class medium {
             }
         }
         return cnt;
+    }
+
+    //title337
+    public int rob(TreeNode root) {
+        int[] dp = robTree(root);
+        return Math.max(dp[0], dp[1]);
+    }
+
+    //返回不偷或偷root的最大价值，res的长度固定为2
+    public int[] robTree(TreeNode root) {
+        if (root == null) return new int[]{0,0};
+        int[] res = new int[2];
+        int[] lArr = new int[2], rArr = new int[2];
+        if (root.left != null){
+            lArr = robTree(root.left);
+        }
+        if (root.right != null){
+            rArr = robTree(root.right);
+        }
+        //不偷root
+        res[0] = Math.max(lArr[0] ,lArr[1]) + Math.max(rArr[0], rArr[1]);
+        //偷root
+        res[1] = root.val + lArr[0] + rArr[0];
+        return res;
     }
 }

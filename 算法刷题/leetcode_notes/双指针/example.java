@@ -1,5 +1,6 @@
 package leetcode_notes.双指针;
 
+import common.ListNode;
 import leetcode_notes.medium.title15;
 
 import java.util.ArrayList;
@@ -44,6 +45,37 @@ public class example {
             }
         }
         return res;
+    }
+
+    /**
+     * title142
+     * 入环点a 相遇点b 环中剩下c
+     * 慢指针在第一圈必定能和快指针相遇，设相遇时fast已经走了n圈
+     * 从相遇点b到入环点a的距离加上 n-1 圈的环长，恰好等于从链表头部到入环点的距离
+     */
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) return null;
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast.next != null){
+            if (fast.next.next == null){
+                return null;
+            }else {
+                fast = fast.next.next;
+            }
+            slow = slow.next;
+            //相遇
+            if (fast == slow){
+                ListNode node = head;
+                //node走到入环点，则slow也从相遇点走到入环点
+                while (node != slow){
+                    node = node.next;
+                    slow = slow.next;
+                }
+                return node;
+            }
+        }
+        return null;
     }
 
 }
