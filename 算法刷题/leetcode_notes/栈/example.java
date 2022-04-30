@@ -81,6 +81,21 @@ public class example {
         }
     }
 
-
+    //有效的括号
+    public boolean isValid(String s) {
+        ArrayDeque<Character> deque = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(')
+                deque.push(')');
+            else if (s.charAt(i) == '[')
+                deque.push(']');
+            else if (s.charAt(i) == '{') {
+                deque.push('}');
+            }else if (deque.isEmpty() || deque.peek() != s.charAt(i))
+                return false;
+            else deque.pop();
+        }
+        return deque.isEmpty();
+    }
 
 }

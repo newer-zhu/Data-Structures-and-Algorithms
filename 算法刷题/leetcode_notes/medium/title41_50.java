@@ -4,38 +4,6 @@ import java.util.*;
 
 
 public class title41_50 {
-    /**title46
-     * 回溯算法经典
-     */
-
-    public ArrayList<ArrayList<Integer>> permute(int[] nums) {
-        int len = nums.length;
-        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        if (len == 0)
-            return res;
-        backTrack(nums, len, 0, new ArrayDeque(len), new boolean[len], res);
-        return res;
-    }
-
-    /**
-     * dep，path，used都是状态参数
-     */
-    public void backTrack(int[] nums, int len, int dep, ArrayDeque path, boolean[] used, ArrayList<ArrayList<Integer>> res){
-        if (dep == len){
-            res.add(new ArrayList<>(path));
-            return;
-        }
-        for (int i = 0; i < len; i++){
-            if (used[i])
-                continue;
-            path.addLast(nums[i]);
-            used[i] = true;
-            backTrack(nums, len, dep + 1, path, used, res);
-
-            path.removeLast();
-            used[i] = false;
-        }
-    }
 
     //title49======考验对map的掌握
     public List<List<String>> groupAnagrams(String[] strs) {

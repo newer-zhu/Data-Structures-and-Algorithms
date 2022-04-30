@@ -7,4 +7,5 @@ package Tree_2_3;
  * 所有叶子节点要在同一层
  */
 public class Tree {
+
 }

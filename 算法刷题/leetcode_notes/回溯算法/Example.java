@@ -1,8 +1,6 @@
 package leetcode_notes.回溯算法;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class Example {
     //title 79
@@ -44,6 +42,54 @@ public class Example {
         return false;//被访问过，此路不通
     }
 
+    //还原IP
+    List<String> ans = new ArrayList<>();
+    public List<String> restoreIpAddresses(String s) {
+        if (s.length() > 12) return ans; // 算是剪枝了
+        dfs(s, 0, 0);
+        return ans;
+    }
 
+    private void dfs(String s, int index,int num) {
+        if (num == 3){
+            if (isValid(s, index, s.length()-1)){
+                ans.add(s);
+                return;
+            }
+            return;
+        }
+
+        for (int i = index; i < s.length(); i++) {
+            if (isValid(s, index, i)){
+                num++;
+                s = s.substring(0, i+1) + "."+s.substring(i+1);
+                dfs(s, i+2, num);
+                num--;
+                s = s.substring(0, i+1) + s.substring(i+2);
+            }else {
+                break;
+            }
+        }
+    }
+
+    private boolean isValid(String s, int start, int end) {
+        if (start > end) {
+            return false;
+        }
+        if (s.charAt(start) == '0' && start != end) { // 0开头的数字不合法
+            return false;
+        }
+        int num = 0;
+        for (int i = start; i <= end; i++) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') { // 遇到⾮数字字符不合法
+                return false;
+            }
+            num = num * 10 + (s.charAt(i) - '0');
+            if (num > 255) { // 如果⼤于255了不合法
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

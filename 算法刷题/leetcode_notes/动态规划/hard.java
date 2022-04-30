@@ -37,4 +37,22 @@ public class hard {
         return dp[n][m];
     }
 
+    public int numDistinct(String s, String t) {
+        int tLen = t.length();
+        int sLen = s.length();
+        int[][] dp = new int[sLen + 1][tLen + 1];
+        for (int i = 0; i <= s.length(); i++) dp[i][0] = 1;
+        for (int j = 1; j <= t.length(); j++) dp[0][j] = 0;
+
+        for (int i = 1; i <= sLen; i++) {
+            for (int j = 1; j <= tLen; j++) {
+                if (t.charAt(j-1) == s.charAt(i-1)){
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                }else {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[sLen][tLen];
+    }
 }

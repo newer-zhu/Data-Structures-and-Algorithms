@@ -2,9 +2,6 @@ package leetcode_notes;
 
 public class solution {
 
-    public static void main(String[] args) {
-
-    }
 
 
     public static boolean isBalanced(TreeNode root) {

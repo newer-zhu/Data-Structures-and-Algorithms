@@ -1,11 +1,12 @@
 package test;
 
+import common.ListNode;
 
-import java.util.Scanner;
-import java.util.Stack;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main1 {
-    public static void main(String[] args) {
 
-    }
 }
