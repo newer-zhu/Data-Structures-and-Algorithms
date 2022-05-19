@@ -1,11 +1,23 @@
 package leetcode_notes.贪心;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Example {
+
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (o1, o2) -> o1[1] - o2[1]);
+        int right = intervals[0][1];
+        int c = 1;
+        for (int i = 1; i < intervals.length; i++){
+            if (intervals[i][0] >= right){
+                right = intervals[i][1];
+                c++;
+            }
+
+        }
+        return intervals.length - c;
+    }
+
     public int maxProfit(int[] prices) {
         int res = 0;
         int low = prices[0];
@@ -61,7 +73,6 @@ public class Example {
     }
 
     //title316
-
     /**
      *字符串是升序的字典序才是最小
      */
@@ -92,17 +103,6 @@ public class Example {
         return sb.toString();
     }
 
-
-    //title406
-    public int[][] reconstructQueue(int[][] people) {
-        Arrays.sort(people, (int[] a, int[] b) -> (a[0] == b[0]?  a[1] - b[1] : b[0] - a[0]));
-        List<int[]> res = new ArrayList<>();
-        for (int[] i : people) {
-            res.add(i[1], i); //把数组放在目标索引位置上，原来有数了，会被往后挤
-        }
-        return res.toArray(new int[0][2]); //容器转成数组
-    }
-
     //title1005
     public int largestSumAfterKNegations(int[] nums, int k) {
         // 排序，把可能有的负数排到前面
@@ -120,5 +120,108 @@ public class Example {
         // 如果k没剩，那说明能转的负数都转正了，已经是最大和，返回sum
         // 如果k有剩，说明负数已经全部转正，所以如果k还剩偶数个就自己抵消掉，不用删减，如果k还剩奇数个就减掉2倍最小正数。
         return sum - (k % 2 == 0 ? 0 : 2 * nums[0]);
+    }
+
+    //摆动序列
+    public int wiggleMaxLength(int[] nums) {
+        if (nums.length <= 1)
+            return nums.length;
+        int curDiff = 0;
+        int preDiff = 0;
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            curDiff = nums[i] - nums[i-1];
+            if ((curDiff < 0 && preDiff >= 0) || (curDiff > 0 && preDiff <= 0)){
+                count++;
+                preDiff = curDiff;
+            }
+        }
+        return count;
+    }
+
+    //跳跃游戏
+    public boolean canJump(int[] nums) {
+        int n = nums.length;
+        int can = nums[0];
+        for (int i = 1; i < n; i++){
+            //跳到这一步时能量can小于0，则跳不到这一步
+            if(can - 1 < 0) return false;
+            //能量值可以不变，但是当这一步拾取的能量值比原有的大时就覆盖
+            can = Math.max(can - 1, nums[i]);
+        }
+        return can >= 0;
+    }
+
+    //跳跃游戏2
+    public int jump(int[] nums) {
+        int n = nums.length;
+        if(n == 1) return 0;
+
+        int steps = 0;
+        //能到达的最远距离和右边界
+        int max = 0, right = 0;
+        //在访问最后一个元素之前，我们的边界一定大于等于最后一个位置
+        for (int i = 0; i < n - 1; i++) {
+            max = Math.max(max, i + nums[i]);
+            if (i == right){
+                steps++;
+                right = max;
+            }
+        }
+        return steps;
+    }
+
+    //加油站
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+        int curSum = 0, totalSum = 0, index = 0;
+        for (int i = 0;i < n ; i++) {
+            //路过i这个加油站剩余的油
+            curSum += gas[i] - cost[i];
+            totalSum += gas[i] - cost[i];
+            if (curSum < 0){//如果剩余的油小于0，[0,i]区间的加油站都可以排除
+                //假设下一个加油站可以作为起点
+                index = (i+1) % n;
+                curSum = 0;
+            }
+        }
+        //先决条件，cost必须小于等于gas
+        if (totalSum < 0) return -1;
+        return index;
+    }
+
+    //根据身高重建队列
+    public int[][] reconstructQueue(int[][] people) {
+        Arrays.sort(people, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if (o2[0]-o1[0] == 0) return o1[1] - o2[1];
+                else return o2[0]-o1[0];
+            }
+        });
+        LinkedList<int[]> list = new LinkedList<>();
+        for (int i = 0; i < people.length; i++) {
+            //如果该index上已经有了元素，那么原有的元素会被后移
+            list.add(people[i][1], people[i]);
+        }
+        return list.toArray(new int[people.length][]);
+    }
+
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> list = new LinkedList<>();
+        int[] edge = new int[26];
+        char[] chars = s.toCharArray();
+        //统计最后出现的位置
+        for (int i = 0; i < chars.length; i++) edge[chars[i] - 'a'] = i;
+
+        int right = 0, last = -1;
+        for (int i = 0; i < s.length(); i++) {
+            right = Math.max(right, edge[s.charAt(i) - 'a']);
+            if (right == i){
+                list.add(right - last);
+                last = right;
+            }
+        }
+        return list;
     }
 }
