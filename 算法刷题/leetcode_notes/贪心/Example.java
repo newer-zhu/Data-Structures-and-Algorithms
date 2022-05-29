@@ -224,4 +224,34 @@ public class Example {
         }
         return list;
     }
+
+    public int monotoneIncreasingDigits(int n) {
+        char[] arr = String.valueOf(n).toCharArray();
+        int start = arr.length;
+        for (int i = arr.length - 1; i > 0; i--) {
+            if (arr[i] < arr[i-1]){
+                arr[i-1]--;
+                start = i;
+            }
+        }
+        while (start < arr.length){
+            arr[start] = '9';
+            start++;
+        }
+        return Integer.parseInt(new String(arr));
+    }
+
+    public int maxProfit(int[] prices, int fee) {
+        int buy = prices[0] + fee;
+        int sum = 0;
+        for (int p : prices) {
+            if (p + fee < buy) {
+                buy = p + fee;
+            } else if (p > buy){
+                sum += p - buy;
+                buy = p;
+            }
+        }
+        return sum;
+    }
 }
