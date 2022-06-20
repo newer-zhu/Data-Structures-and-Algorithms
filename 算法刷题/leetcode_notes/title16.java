@@ -37,8 +37,7 @@ public class title16 {
                         c1--;
                     }
                     c = c1;
-                }
-                else {
+                } else {
                     int b1 = b - 1;
                     while (b1 < c && nums[b1] == nums[b]){
                         b1++;
@@ -50,6 +49,7 @@ public class title16 {
         return answer;
     }
 
+
     List<String> ans = new ArrayList<>();
     String num;
     int len;
@@ -57,7 +57,7 @@ public class title16 {
     public List<String> addOperators(String num, int target) {
         this.num = num;
         this.len = num.length();
-        this.target  =target;
+        this.target = target;
         backtrack(new StringBuilder(), 0, 0, 0);
         return ans;
     }

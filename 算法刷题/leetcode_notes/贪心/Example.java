@@ -1,5 +1,7 @@
 package leetcode_notes.贪心;
 
+import common.TreeNode;
+
 import java.util.*;
 
 public class Example {
@@ -253,5 +255,33 @@ public class Example {
             }
         }
         return sum;
+    }
+
+    static int res = 0;
+    public int minCameraCover(TreeNode root) {
+        res = 0;//这行必须有
+        if (traversal(root) == 0){
+            res++;
+        }
+        return res;
+    }
+
+    /**
+     * @return 1摄像头， 2已覆盖， 0没覆盖
+     */
+    private int traversal(TreeNode cur){
+        if (cur == null) return 2;
+        int left = traversal(cur.left);
+        int right = traversal(cur.right);
+
+        if (left == 2 && right == 2) return 0;
+
+        if (left == 0 || right == 0){
+            res++;
+            return 1;
+        }
+
+        if (left == 1 || right == 1) return 2;
+        return -1;
     }
 }

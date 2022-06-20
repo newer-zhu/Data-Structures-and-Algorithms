@@ -1,25 +1,9 @@
 package leetcode_notes;
 
-import javafx.collections.ObservableIntegerArray;
-import leetcode_notes.simple.title160;
 
 import java.util.*;
 
 public class title1_10 {
-    //1.
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement) && map.get(complement) != i) {
-                return new int[] { i, map.get(complement) };
-            }
-        }
-        throw new IllegalArgumentException("No two sum solution");
-    }
 
     //3.滑动窗口
     public int lengthOfLongestSubstring(String s) {

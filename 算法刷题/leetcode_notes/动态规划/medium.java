@@ -408,4 +408,19 @@ public class medium {
         res[1] = root.val + lArr[0] + rArr[0];
         return res;
     }
+
+    //    title62=================
+    public static int uniquePaths(int m, int n) {
+        int[][] path = new int[m][n];
+        for (int i = 0; i < n; i++)
+            path[0][i] = 1;
+        for (int j = 0; j < m; j++)
+            path[j][0] = 1;
+        for (int k = 1; k < m; k++){
+            for (int d = 1; d < n; d++){
+                path[k][d] = path[k-1][d] + path[k][d-1];
+            }
+        }
+        return path[m-1][n-1];
+    }
 }
