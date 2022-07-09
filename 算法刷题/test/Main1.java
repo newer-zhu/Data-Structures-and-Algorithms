@@ -1,12 +1,9 @@
 package test;
 
-import common.ListNode;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
+import jdk.jshell.execution.Util;
 
 public class Main1 {
-
+    public static void main(String[] args) {
+    }
 }

@@ -4,9 +4,6 @@ package leetcode_notes;
  * 38.外观数列
  */
 public class title38 {
-    public static void main(String[] args) {
-        System.out.println(countAndSay(6));
-    }
     public static String countAndSay(int n) {
         if (n == 1)
             return "1";

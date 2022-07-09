@@ -1,6 +1,8 @@
 package leetcode_notes;
 
 
+import common.ListNode;
+
 import java.util.*;
 
 public class title1_10 {
@@ -19,13 +21,6 @@ public class title1_10 {
         return ans;
     }
 
-    public class ListNode {
-       int val;
-       ListNode next;
-       ListNode() {}
-       ListNode(int val) { this.val = val; }
-       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-   }
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = null, tail = null;
         int carry = 0, sum = 0;
@@ -55,7 +50,7 @@ public class title1_10 {
 
     }
     //title 5
-    public String longestPalindrome(String s) {;
+    public String longestPalindrome(String s) {
         int len = s.length();
         if (len < 2) {
             return s;
@@ -88,41 +83,5 @@ public class title1_10 {
         }
 
         return s.substring(begin, begin + max);
-    }
-
-    //title6
-    public String convert(String s, int numRows) {
-        if (numRows == 1) return s;
-
-        //每一行
-        List<StringBuilder> rows = new ArrayList<>();
-        for (int i = 0; i < Math.min(numRows, s.length()); i++)
-            rows.add(new StringBuilder());
-
-        int curRow = 0;//现在位于哪一行
-        boolean goingDown = false;
-
-        for (char c : s.toCharArray()) {
-            //当前行加入此个字母
-            rows.get(curRow).append(c);
-            //控制方向的指针：只有到临界行才会转向
-            if (curRow == 0 || curRow == numRows - 1) goingDown = !goingDown;
-            curRow += goingDown ? 1 : -1;
-        }
-
-
-        StringBuilder ret = new StringBuilder();
-        for (StringBuilder row : rows) ret.append(row);
-        return ret.toString();
-    }
-
-    //7. 注意溢出问题
-    public int reverse(int x) {
-        long l = 0;
-        while(x != 0){
-            l = l*10 + (x % 10);
-            x = x / 10;
-        }
-        return (int) l == l ? (int) l : 0;
     }
 }

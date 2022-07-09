@@ -73,4 +73,20 @@ public class example {
         return -1;
     }
 
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0)
+            return false;
+        int n = matrix[0].length;
+        int m = matrix.length;
+        int begin = 0, mid = 0, end =  m * n;
+        while (begin < end){
+            mid = (begin + end) / 2;
+            if (target > matrix[mid / n][mid % n]){
+                begin = mid + 1;
+            }else {
+                end = mid;
+            }
+        }
+        return matrix[begin / n][begin % n] == target;
+    }
 }
