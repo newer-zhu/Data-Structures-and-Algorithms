@@ -3,6 +3,42 @@ package leetcode_notes.链表;
 import common.ListNode;
 
 public class Example {
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast){
+                ListNode h = head;
+                while (h != slow){
+                    h = h.next;
+                    slow = slow.next;
+                }
+                return h;
+            }
+        }
+        return null;
+    }
+    //利用set
+//    public class Solution {
+//        public ListNode detectCycle(ListNode head) {
+//            ListNode pos = head;
+//            Set<ListNode> visited = new HashSet<ListNode>();
+//            while (pos != null) {
+//                if (visited.contains(pos)) {
+//                    return pos;
+//                } else {
+//                    visited.add(pos);
+//                }
+//                pos = pos.next;
+//            }
+//            return null;
+//        }
+//    }
+
     //title147
     public ListNode insertionSortList(ListNode head) {
         if (head == null) {

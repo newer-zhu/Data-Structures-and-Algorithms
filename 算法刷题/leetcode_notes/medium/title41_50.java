@@ -4,7 +4,6 @@ import java.util.*;
 
 
 public class title41_50 {
-
     //title49======考验对map的掌握
     public List<List<String>> groupAnagrams(String[] strs) {
         HashMap<String, List<String>> map = new HashMap<>();

@@ -33,24 +33,4 @@ public class title131_140 {
         }
         return -1;
     }
-
-    //title135
-    public int candy(int[] ratings) {
-        int res = 0;
-        int[] candy = new int[ratings.length];
-        Arrays.fill(candy, 1);
-        for (int i = 1; i < candy.length; i++){
-            if (ratings[i] > ratings[i-1]){
-                candy[i] = candy[i-1] + 1;
-            }
-        }
-        for (int j = candy.length - 2; j >= 0; j--){
-            if (ratings[j] > ratings[j+1]){
-                candy[j] = Math.max(candy[j], candy[j+1] + 1);
-            }
-        }
-        for (int k : candy)
-            res += k;
-        return res;
-    }
 }
