@@ -1,7 +1,7 @@
 # -Data-structure-and-algorithm
 ## My personnal study notes about Data structure and algorithm
 ### 个人数据结构学习笔记
-
+```
 ├─Algorithm （常用算法例题）
 ├─Data-structure （数据结构例）
 └─算法刷题
@@ -23,3 +23,4 @@
     │  ├─贪心
     │  └─链表
     └─剑指Offer
+```

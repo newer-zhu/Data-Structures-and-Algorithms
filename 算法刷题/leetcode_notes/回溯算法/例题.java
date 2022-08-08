@@ -3,6 +3,30 @@ package leetcode_notes.回溯算法;
 import java.util.*;
 
 public class 例题 {
+    //title22
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<String>();
+        backtrack(ans, new StringBuilder(), 0, 0, n);
+        return ans;
+    }
+
+    public void backtrack(List<String> ans, StringBuilder cur, int open, int close, int max) {
+        if (cur.length() == max * 2) {
+            ans.add(cur.toString());
+            return;
+        }
+        if (open < max) {
+            cur.append('(');
+            backtrack(ans, cur, open + 1, close, max);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+        if (close < open) {
+            cur.append(')');
+            backtrack(ans, cur, open, close + 1, max);
+            cur.deleteCharAt(cur.length()- 1);
+        }
+    }
+
     //title39
     /**
      * 凡是求多少种解法的题考虑用回溯
