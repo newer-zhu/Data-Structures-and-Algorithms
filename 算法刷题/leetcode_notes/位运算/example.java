@@ -1,6 +1,22 @@
 package leetcode_notes.位运算;
 
 public class example {
+
+    /**
+     *交换律：a ^ b ^ c <=> a ^ c ^ b
+     *
+     * 任何数于0异或为任何数 0 ^ n => n
+     *
+     * 相同的数异或为0: n ^ n => 0
+     */
+    public static int singleNumber(int[] nums) {
+        int result=0;
+        for(int i=0;i<nums.length;i++){
+            result ^= nums[i];
+        }
+        return result;
+    }
+    
     /**
      * 用32位整数表示一个单词出现的字符，a是最低位
      * hash【i】表示第i个单词出现过的字母

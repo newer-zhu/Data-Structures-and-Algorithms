@@ -1,14 +1,39 @@
 package leetcode_notes.双指针;
 
 import common.ListNode;
-import leetcode_notes.medium.title15;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class example {
+    //tile15
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (nums == null || nums.length <= 2) return ans;
+        Arrays.sort(nums);
 
+        for (int i = 0; i < nums.length - 2; i++) { // O(n^2)
+            if (nums[i] > 0) break; // 第一个数大于 0，后面的数都比它大，肯定不成立了
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // 去掉重复情况
+            int target = -nums[i];
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] == target) {
+                    ans.add(new ArrayList<>(Arrays.asList(nums[i], nums[left], nums[right])));
+                    // 现在要增加 left，减小 right，但是不能重复
+                    left++; right--; // 首先无论如何先要进行加减操作
+                    while (left < right && nums[left] == nums[left - 1]) left++;
+                    while (left < right && nums[right] == nums[right + 1]) right--;
+                } else if (nums[left] + nums[right] < target) {
+                    left++;
+                } else {  // nums[left] + nums[right] > target
+                    right--;
+                }
+            }
+        }
+        return ans;
+    }
     public int removeElement(int[] nums, int val) {
         int slow = 0, fast = 0;
         while (fast < nums.length){
@@ -20,44 +45,7 @@ public class example {
         return slow;
     }
 
-    /** title15
-     * 给你一个由 n 个整数组成的数组 nums。
-     * 请你找出并返回满足下述全部条件且不重复的三元组 a + b + c = 0
-     * （若两个三元组元素一一对应，则认为两个三元组重复）
-     */
-    public List<List<Integer>> threeSum(int[] nums) {
-        int N = nums.length;
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        for (int i = 0; i < N-2; i++) {
-            //第一层去重
-            if (i > 0 && nums[i] == nums[i-1])
-                continue;
-            //a+b+c=0，a，b都在递增，所以c需要递减
-            int right = N - 1;
-            for (int j = i + 1; j < N - 1; j++) {
-                //第二层去重
-                if (j > i + 1 && nums[j] == nums[j-1])
-                    continue;
-                while (j < right){
-                    if (nums[i] + nums[j] + nums[right] == 0){
-                        ArrayList<Integer> ans = new ArrayList<>();
-                        ans.add(nums[i]);
-                        ans.add(nums[j]);
-                        ans.add(nums[right]);
-                        res.add(ans);
-                        break;//a，b，c已经确定
-                    }else if (nums[right] + nums[i] + nums[j] < 0){
-                        break;//剪枝，nums[right] + nums[i] + nums[j]只会越来越小
-                    }
-                    right--;
-                }
-            }
-        }
-        return res;
-    }
-
-
+    //滑动窗口
     public static int minSubArrayLen(int target, int[] nums) {
         int start = 0, end = 0;
         int res = Integer.MAX_VALUE;
