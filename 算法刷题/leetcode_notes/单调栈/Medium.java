@@ -1,9 +1,6 @@
 package leetcode_notes.单调栈;
 
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 
 public class Medium {
