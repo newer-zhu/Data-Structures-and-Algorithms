@@ -1,8 +1,17 @@
 package leetcode_notes.字符串;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Example {
+    //t179
+    public String largestNumber(int[] nums) {
+        String str = Arrays.stream(nums).mapToObj(String::valueOf)
+                .sorted((x, y) -> (y + x).compareTo(x + y))
+                .collect(Collectors.joining(""));
+        return str.charAt(0) == '0' ? "0" : str;
+    }
+
     //title451
     public String frequencySort(String s) {
         Map<Character, Integer> map = new HashMap<Character, Integer>();

@@ -20,15 +20,6 @@ public class Example {
         return intervals.length - c;
     }
 
-    public int maxProfit(int[] prices) {
-        int res = 0;
-        int low = prices[0];
-        for (int i = 1; i < prices.length; i++) {
-            low = Math.min(low, prices[i]);
-            res = Math.max(res, prices[i] - low);
-        }
-        return res;
-    }
 
     //title678
     public boolean checkValidString(String s) {
@@ -61,17 +52,6 @@ public class Example {
             res += num - minNum;
         }
         return res;
-    }
-
-    public int minMoves1(int[] nums) {
-        int l = nums.length;
-        int sum = 0;
-        int min = Integer.MAX_VALUE;
-        for (int num : nums) {
-            sum += num;
-            min = Math.min(min, num);
-        }
-        return sum - l * min;
     }
 
     //title316

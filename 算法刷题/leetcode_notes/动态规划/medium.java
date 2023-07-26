@@ -7,6 +7,7 @@ import java.util.*;
 
 public class medium {
 
+
     //变通成打家劫舍问题
     public int deleteAndEarn(int[] nums) {
         int max = 0;

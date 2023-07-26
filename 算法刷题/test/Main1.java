@@ -1,9 +1,0 @@
-package test;
-
-
-import jdk.jshell.execution.Util;
-
-public class Main1 {
-    public static void main(String[] args) {
-    }
-}

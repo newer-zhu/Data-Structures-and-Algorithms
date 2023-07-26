@@ -3,7 +3,7 @@ package sort;
 public class BubbleSort {
     public static void main(String[] args) {
         int[] arr ={1,15,0,91,-32,45};
-        int temp = 0;//索引
+        int temp = 0;
 
         for (int i=0; i<arr.length-1; i++){
             for (int j=0; j<arr.length-1-i; j++) {
